@@ -9,7 +9,6 @@ const CategoryPage = () => {
     const [selectedCategoryName, setSelectedCategoryName] = useState("All");
     const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(false);
-    // const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
     // Fetch categories from API
     const fetchCategories = async () => {
