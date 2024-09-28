@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const HomePage = () => {
+const CategoryPage = () => {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [selectedCategoryUrl, setSelectedCategoryUrl] = useState(
@@ -9,7 +9,7 @@ const HomePage = () => {
     const [selectedCategoryName, setSelectedCategoryName] = useState("All");
     const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [searchInput, setSearchInput] = useState("");
+    // const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
     // Fetch categories from API
     const fetchCategories = async () => {
@@ -117,4 +117,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default CategoryPage;
