@@ -16,7 +16,7 @@ const MainLayout = () => {
     };
     return (
         <div className="m-2">
-            <div className="flex items-center justify-between mb-4 p-3 ">
+            <div className="flex md:flex-row flex-col gap-4 md:gap-1  items-center justify-between mb-4 p-3 ">
                 <Link to="/">
                     <h2 className="text-3xl text-center underline text-red-400">
                         Home
@@ -30,7 +30,10 @@ const MainLayout = () => {
                         onChange={(e) => setSearchInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                     />
-                    <button className="text-xl" onClick={handleSearch}>
+                    <button
+                        className="text-lg border border-gray-400 p-1 rounded-lg"
+                        onClick={handleSearch}
+                    >
                         🔍
                     </button>
                 </div>
