@@ -1,31 +1,34 @@
-import { useEffect, useState } from "react";
+// SearchPage.jsx
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setProducts } from "../store/slices/productSlice";
 import { useLocation } from "react-router-dom";
 
 const SearchPage = () => {
-    const [loading, setLoading] = useState(true);
-    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+    const { loading, products } = useSelector((state) => state.products);
     const location = useLocation();
     const searchQuery = new URLSearchParams(location.search).get("query");
 
     const fetchProducts = async (query) => {
+        dispatch(setLoading(true));
         const url = `https://dummyjson.com/products/search?q=${query}`;
-        const data = await fetch(url);
-        const json = await data.json();
-        console.log(`search results for ${query}`, json.products);
-        setProducts(json.products);
-        setLoading(false);
+        const response = await fetch(url);
+        const json = await response.json();
+        dispatch(setProducts(json.products));
+        dispatch(setLoading(false));
     };
 
-    // Fetch products when the component mounts or when the search query changes
     useEffect(() => {
         if (searchQuery) {
             fetchProducts(searchQuery);
         }
     }, [searchQuery]);
+
     return (
         <div>
             <h1>Search Page</h1>
-            {loading && <div>Loading results</div>}
+            {loading && <div>Loading results...</div>}
             {products.length > 0 ? (
                 products.map((product) => (
                     <div
@@ -43,4 +46,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-// hello

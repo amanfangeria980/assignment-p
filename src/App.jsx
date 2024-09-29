@@ -3,7 +3,8 @@ import MainLayout from "./layout/MainLayout";
 import SearchPage from "./pages/SearchPage";
 import CategoryPage from "./pages/CategoryPage";
 import HomePage from "./pages/HomePage";
-
+import { Provider } from "react-redux";
+import store from "./store/store";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -26,9 +27,11 @@ const router = createBrowserRouter([
 ]);
 const App = () => {
     return (
-        <RouterProvider router={router}>
-            <div>{/*  */}</div>
-        </RouterProvider>
+        <Provider store={store}>
+            <RouterProvider router={router}>
+                <div>{/*  */}</div>
+            </RouterProvider>
+        </Provider>
     );
 };
 
