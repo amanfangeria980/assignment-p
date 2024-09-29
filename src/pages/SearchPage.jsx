@@ -27,7 +27,7 @@ const SearchPage = () => {
 
     return (
         <div>
-            <h1>Search Page</h1>
+            <h1 className="text-3xl mb-3">Search Result for "{searchQuery}"</h1>
             {loading && <div>Loading results...</div>}
             {products.length > 0 ? (
                 products.map((product) => (

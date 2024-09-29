@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 const MainLayout = () => {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
@@ -11,7 +11,11 @@ const MainLayout = () => {
     return (
         <div className="m-2">
             <div className="flex items-center justify-between mb-4 p-3 ">
-                <h2 className="text-3xl text-center underline">Categories</h2>
+                <Link to="/">
+                    <h2 className="text-3xl text-center underline text-red-400">
+                        Home
+                    </h2>
+                </Link>
                 <div className="flex gap-1 items-center justify-center">
                     <input
                         type="text"
@@ -19,9 +23,9 @@ const MainLayout = () => {
                         placeholder="Search..."
                         onChange={(e) => setSearchInput(e.target.value)}
                     />
-                    <h2 className="text-xl" onClick={handleSearch}>
+                    <button className="text-xl" onClick={handleSearch}>
                         🔍
-                    </h2>
+                    </button>
                 </div>
             </div>
             <Outlet />
