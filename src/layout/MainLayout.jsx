@@ -3,6 +3,12 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 const MainLayout = () => {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    };
+
     const handleSearch = () => {
         if (searchInput.trim()) {
             navigate(`/search?query=${searchInput}`);
@@ -22,6 +28,7 @@ const MainLayout = () => {
                         className="border border-gray-400 rounded-lg p-2"
                         placeholder="Search..."
                         onChange={(e) => setSearchInput(e.target.value)}
+                        onKeyDown={handleKeyDown}
                     />
                     <button className="text-xl" onClick={handleSearch}>
                         🔍
