@@ -69,7 +69,7 @@ const SearchPage = () => {
         setLoading(false);
     };
 
-    // Fetch products when the component mounts or when the search query changes
+    // Fetch products when the component mounts or when the search query or page changes
     useEffect(() => {
         if (searchQuery) {
             // Reset products and page if the query changes
@@ -82,9 +82,10 @@ const SearchPage = () => {
     // Fetch products based on the page change
     useEffect(() => {
         if (page > 0) {
-            fetchProducts(searchQuery, page); // Fetch products only if page is greater than 0
+            // Fetch products only if page is greater than 0
+            fetchProducts(searchQuery, page);
         }
-    }, [page, searchQuery]);
+    }, [page, searchQuery]); // Page and query dependencies
 
     // Load more products by incrementing the page
     const loadMoreProducts = () => {
@@ -94,24 +95,22 @@ const SearchPage = () => {
     return (
         <div>
             <h1>Search Page</h1>
-            {loading ? (
-                <div>Loading results...</div>
-            ) : (
-                <>
-                    {products.length > 0 ? (
-                        products.map((product) => (
-                            <div
-                                key={product.id}
-                                className="flex flex-wrap items-center"
-                            >
-                                <h4>{product.title}</h4>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No products found.</p>
-                    )}
-                </>
+            {loading  ? <div>Loading results...</div> : (
+                  {products.length > 0 ? (
+                    products.map((product) => (
+                        <div
+                            key={product.id}
+                            className="flex flex-wrap items-center"
+                        >
+                            <h4>{product.title}</h4>
+                        </div>
+                    ))
+                ) : (
+                    <p>No products found.</p>
+                )}
+    
             )}
+          
             <div>
                 <button
                     onClick={loadMoreProducts}
