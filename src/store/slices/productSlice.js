@@ -1,4 +1,3 @@
-// slices/productSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({
@@ -16,7 +15,7 @@ const productSlice = createSlice({
             state.products = action.payload;
         },
         addProducts(state, action) {
-            state.products.push(...action.payload);
+            state.products = [...state.products, ...action.payload];
         },
         incrementPage(state) {
             state.page += 1;
@@ -36,13 +35,21 @@ export const {
     resetProducts,
 } = productSlice.actions;
 
+// Adjusted fetchProductsByCategory action to handle page 0 and appending products for further pages
 export const fetchProductsByCategory =
-    (categoryUrl, page) => async (dispatch) => {
+    (categoryUrl, pageNumber) => async (dispatch) => {
         dispatch(setLoading(true));
-        const url = `${categoryUrl}?limit=10&skip=${page * 10}`;
+
+        const url = `${categoryUrl}?limit=10&skip=${pageNumber * 10}`;
         const response = await fetch(url);
         const data = await response.json();
-        dispatch(addProducts(data.products));
+
+        if (pageNumber === 0) {
+            dispatch(setProducts(data.products)); // Replace products on page 0
+        } else {
+            dispatch(addProducts(data.products)); // Append products for subsequent pages
+        }
+
         dispatch(setLoading(false));
     };
 
